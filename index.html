@@ -3,766 +3,681 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Zuki Music</title>
 
 <style>
 * {
     box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    margin: 0;
-    min-height: 100vh;
-    background: linear-gradient(180deg, #202b66, #071127);
-    color: white;
     font-family: Arial, sans-serif;
-}
-
-.app {
-    max-width: 520px;
-    margin: auto;
     min-height: 100vh;
-    padding: 25px 22px;
+    background: linear-gradient(160deg, #202b66, #071127);
+    color: white;
+    padding: 20px;
 }
 
-/* TOP */
-
-.top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 25px;
+.container {
+    max-width: 600px;
+    margin: auto;
 }
 
-.top h2 {
-    margin: 0;
-    font-size: 20px;
+.player {
+    background: rgba(255,255,255,0.08);
+    border-radius: 25px;
+    padding: 25px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.35);
 }
-
-.menu {
-    font-size: 28px;
-}
-
-/* COVER */
 
 .cover {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    border-radius: 25px;
-    background:
-        radial-gradient(
-            circle at 50% 45%,
-            #7185ff 0 8%,
-            transparent 8.5%
-        ),
-        radial-gradient(
-            circle at 50% 50%,
-            #7185ff 0 22%,
-            transparent 22.5%
-        ),
-        linear-gradient(135deg, #26366f, #121b3e);
-
+    width: 220px;
+    height: 220px;
+    margin: auto;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #6875e8, #17215a);
     display: flex;
     align-items: center;
     justify-content: center;
-
-    margin-bottom: 25px;
-
-    box-shadow:
-        0 20px 50px rgba(0,0,0,.3);
+    font-size: 90px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
 
-.note {
-    font-size: 120px;
-    opacity: .9;
-}
-
-/* SONG INFO */
-
-.song-info {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-}
-
-.song-text {
-    min-width: 0;
-}
-
-.song-title {
+.title {
+    text-align: center;
+    margin-top: 20px;
     font-size: 22px;
     font-weight: bold;
-
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .artist {
-    color: #aaa;
-    margin-top: 8px;
+    text-align: center;
+    margin-top: 6px;
+    color: #bfc7ff;
 }
 
-.heart {
-    font-size: 32px;
-}
-
-/* PROGRESS */
-
-.progress-area {
+.progress-container {
     margin-top: 25px;
-}
-
-.progress {
-    width: 100%;
-}
-
-.time {
-    display: flex;
-    justify-content: flex-end;
-
-    color: #ddd;
-    font-size: 14px;
-
-    margin-top: 5px;
 }
 
 input[type="range"] {
     width: 100%;
-    accent-color: white;
-}
-
-/* CONTROLS */
-
-.controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    margin-top: 25px;
-}
-
-.control {
-    border: none;
-    background: transparent;
-
-    color: white;
-
-    font-size: 28px;
-
-    width: 55px;
-    height: 55px;
-
-    border-radius: 50%;
-}
-
-.control:active {
-    transform: scale(.9);
-}
-
-.play {
-    width: 75px;
-    height: 75px;
-
-    background: rgba(255,255,255,.1);
-
-    font-size: 35px;
-}
-
-.skip {
-    font-size: 22px;
-    position: relative;
-}
-
-.skip small {
-    display: block;
-    font-size: 10px;
-    margin-top: -3px;
-}
-
-/* EXTRA */
-
-.extra-controls {
-    display: flex;
-    justify-content: space-between;
-
-    margin-top: 25px;
-}
-
-.extra {
-    border: none;
-    background: transparent;
-
-    color: #999;
-
-    font-size: 25px;
-}
-
-.extra:active {
-    transform: scale(.9);
-}
-
-.extra.active {
-    color: #788cff;
-}
-
-/* STATUS */
-
-.status {
-    text-align: center;
-
-    color: #aaa;
-    font-size: 13px;
-
-    margin: 20px 0;
-}
-
-/* SONG LIST */
-
-.list {
-    margin-top: 20px;
-}
-
-.list-title {
-    font-size: 18px;
-    font-weight: bold;
-
-    margin-bottom: 10px;
-}
-
-.song-item {
-    padding: 13px;
-
-    margin-bottom: 7px;
-
-    background: rgba(255,255,255,.06);
-
-    border-radius: 12px;
-
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-
     cursor: pointer;
 }
 
-.song-item:active {
-    transform: scale(.98);
+.time {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #c7cbe0;
+    margin-top: 5px;
 }
 
-.song-item.active {
-    background: #5369e8;
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 25px;
 }
 
-.song-item.played {
-    opacity: .45;
+button {
+    border: none;
+    cursor: pointer;
+    color: white;
+    background: rgba(255,255,255,0.12);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
 }
 
-/* PC */
+button:hover {
+    background: rgba(255,255,255,0.22);
+}
 
-@media (min-width: 700px) {
+.play {
+    width: 65px;
+    height: 65px;
+    font-size: 25px;
+    background: white;
+    color: #18204d;
+}
 
-    .app {
-        max-width: 600px;
-        padding-top: 35px;
+.play:hover {
+    background: #eeeeee;
+}
+
+.extra-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 18px;
+    gap: 12px;
+}
+
+.shuffle {
+    border-radius: 25px;
+    width: auto;
+    padding: 0 20px;
+    font-size: 15px;
+}
+
+.shuffle.active {
+    background: #6977ff;
+    box-shadow: 0 0 15px rgba(105,119,255,0.6);
+}
+
+.status {
+    text-align: center;
+    font-size: 13px;
+    color: #c7cbe0;
+    margin-top: 12px;
+    min-height: 18px;
+}
+
+.song-list {
+    margin-top: 25px;
+    background: rgba(0,0,0,0.15);
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.song-list h2 {
+    font-size: 17px;
+    padding: 16px;
+}
+
+.song {
+    padding: 13px 16px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    cursor: pointer;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.song:hover {
+    background: rgba(255,255,255,0.08);
+}
+
+.song.active {
+    background: rgba(105,119,255,0.25);
+}
+
+.number {
+    width: 25px;
+    color: #aeb6e8;
+}
+
+.song-name {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.loading {
+    text-align: center;
+    padding: 20px;
+    color: #c7cbe0;
+}
+
+@media (max-width: 500px) {
+    body {
+        padding: 10px;
     }
 
+    .player {
+        padding: 18px;
+        border-radius: 20px;
+    }
+
+    .cover {
+        width: 190px;
+        height: 190px;
+        font-size: 75px;
+    }
+
+    .controls {
+        gap: 7px;
+    }
+
+    button {
+        width: 43px;
+        height: 43px;
+    }
+
+    .play {
+        width: 60px;
+        height: 60px;
+    }
 }
 </style>
 </head>
 
-
 <body>
 
-<div class="app">
+<div class="container">
 
-    <!-- TOP -->
+    <div class="player">
 
-    <div class="top">
-
-        <div style="font-size:30px;">
-            ⌄
+        <div class="cover">
+            🎵
         </div>
 
-        <h2>
-            Bài hát
-        </h2>
+        <div class="title" id="title">
+            Đang tải nhạc...
+        </div>
 
-        <div class="menu">
-            ⋮
+        <div class="artist">
+            Zuki Music
+        </div>
+
+        <div class="progress-container">
+            <input
+                type="range"
+                id="progress"
+                min="0"
+                max="100"
+                value="0"
+            >
+
+            <div class="time">
+                <span id="currentTime">0:00</span>
+                <span id="duration">0:00</span>
+            </div>
+        </div>
+
+        <div class="controls">
+
+            <button onclick="back10()">
+                ↶10
+            </button>
+
+            <button onclick="previousSong()">
+                ⏮
+            </button>
+
+            <button class="play" id="playButton" onclick="togglePlay()">
+                ▶
+            </button>
+
+            <button onclick="nextSong()">
+                ⏭
+            </button>
+
+            <button onclick="forward10()">
+                ↷10
+            </button>
+
+        </div>
+
+        <div class="extra-controls">
+
+            <button
+                class="shuffle"
+                id="shuffleButton"
+                onclick="toggleShuffle()"
+            >
+                🔀 Trộn
+            </button>
+
+        </div>
+
+        <div class="status" id="status">
+            Đang tải danh sách bài hát...
         </div>
 
     </div>
 
+    <div class="song-list">
 
-    <!-- COVER -->
+        <h2>🎵 Danh sách bài hát</h2>
 
-    <div class="cover">
-
-        <div class="note">
-            ♪
-        </div>
-
-    </div>
-
-
-    <!-- SONG INFO -->
-
-    <div class="song-info">
-
-        <div class="song-text">
-
-            <div
-                class="song-title"
-                id="songTitle">
-
+        <div id="songList">
+            <div class="loading">
                 Đang tải...
-
             </div>
-
-            <div class="artist">
-                Zuki Music
-            </div>
-
-        </div>
-
-        <div class="heart">
-            ♡
-        </div>
-
-    </div>
-
-
-    <!-- PROGRESS -->
-
-    <div class="progress-area">
-
-        <input
-            type="range"
-            id="progress"
-            class="progress"
-            value="0"
-            min="0"
-            max="100"
-        >
-
-        <div class="time">
-
-            <span id="currentTime">
-                00:00
-            </span>
-
-            &nbsp;/&nbsp;
-
-            <span id="duration">
-                00:00
-            </span>
-
-        </div>
-
-    </div>
-
-
-    <!-- AUDIO -->
-
-    <audio id="audio"></audio>
-
-
-    <!-- MAIN CONTROLS -->
-
-    <div class="controls">
-
-
-        <!-- LÙI 10 -->
-
-        <button
-            class="control skip"
-            onclick="skipBackward()">
-
-            ↶
-            <small>10</small>
-
-        </button>
-
-
-        <!-- BÀI TRƯỚC -->
-
-        <button
-            class="control"
-            onclick="previousSong()">
-
-            ⏮
-
-        </button>
-
-
-        <!-- PLAY -->
-
-        <button
-            class="control play"
-            onclick="togglePlay()">
-
-            ▶
-
-        </button>
-
-
-        <!-- BÀI TIẾP -->
-
-        <button
-            class="control"
-            onclick="nextSong()">
-
-            ⏭
-
-        </button>
-
-
-        <!-- TIẾN 10 -->
-
-        <button
-            class="control skip"
-            onclick="skipForward()">
-
-            ↷
-            <small>10</small>
-
-        </button>
-
-    </div>
-
-
-    <!-- EXTRA CONTROLS -->
-
-    <div class="extra-controls">
-
-
-        <!-- SHUFFLE -->
-
-        <button
-            id="shuffleButton"
-            class="extra"
-            onclick="toggleShuffle()">
-
-            🔀
-
-        </button>
-
-
-        <button
-            class="extra"
-            onclick="previousSong()">
-
-            ☷
-
-        </button>
-
-
-        <button
-            class="extra"
-            onclick="showList()">
-
-            ☰
-
-        </button>
-
-    </div>
-
-
-    <!-- STATUS -->
-
-    <div
-        class="status"
-        id="status">
-
-        Đang tải danh sách nhạc...
-
-    </div>
-
-
-    <!-- SONG LIST -->
-
-    <div
-        class="list"
-        id="songList">
-
-        <div class="list-title">
-            Danh sách bài hát
         </div>
 
     </div>
 
 </div>
 
+<audio id="audio"></audio>
 
 <script>
 
-/* =====================================
-   INTERNET ARCHIVE
-===================================== */
+const IDENTIFIER = "zuki_20260914";
 
-const ARCHIVE_ID =
-    "zuki_20260914";
+const METADATA_URL =
+    `https://archive.org/metadata/${IDENTIFIER}`;
 
+const DOWNLOAD_URL =
+    `https://archive.org/download/${IDENTIFIER}/`;
 
-/* =====================================
-   ELEMENTS
-===================================== */
-
-const audio =
-    document.getElementById("audio");
-
-const title =
-    document.getElementById("songTitle");
-
-const progress =
-    document.getElementById("progress");
-
-const currentTimeText =
-    document.getElementById("currentTime");
-
-const durationText =
-    document.getElementById("duration");
-
-const status =
-    document.getElementById("status");
-
-const songList =
-    document.getElementById("songList");
-
-const playButton =
-    document.querySelector(".play");
-
-const shuffleButton =
-    document.getElementById("shuffleButton");
-
-
-/* =====================================
-   VARIABLES
-===================================== */
+const audio = document.getElementById("audio");
+const title = document.getElementById("title");
+const progress = document.getElementById("progress");
+const currentTimeText = document.getElementById("currentTime");
+const durationText = document.getElementById("duration");
+const playButton = document.getElementById("playButton");
+const songList = document.getElementById("songList");
+const shuffleButton = document.getElementById("shuffleButton");
+const status = document.getElementById("status");
 
 let songs = [];
-
 let currentIndex = 0;
 
 let shuffleEnabled = false;
 
 /*
-    Danh sách các bài đã phát
-    trong vòng trộn hiện tại.
+    Danh sách những bài đã nghe trong
+    lượt trộn hiện tại.
 */
-
 let playedSongs = [];
 
 
-/* =====================================
+/* =========================
    TẢI DANH SÁCH NHẠC
-===================================== */
+========================= */
 
 async function loadSongs() {
 
     try {
 
-        const response =
-            await fetch(
-                "https://archive.org/metadata/"
-                + ARCHIVE_ID
-            );
+        const response = await fetch(METADATA_URL);
 
-
-        const data =
-            await response.json();
-
-
-        const baseURL =
-            "https://archive.org/download/"
-            + ARCHIVE_ID
-            + "/";
-
+        const data = await response.json();
 
         songs = data.files
+            .filter(file => {
+                return file.name &&
+                       file.name.toLowerCase().endsWith(".mp3");
+            })
+            .map(file => {
 
-            .filter(file =>
-                file.name &&
-                file.name
-                    .toLowerCase()
-                    .endsWith(".mp3")
-            )
+                return {
+                    name: file.name,
+                    url: DOWNLOAD_URL +
+                         encodeURIComponent(file.name)
+                };
 
-            .map(file => ({
-
-                name:
-                    file.name
-                        .replace(/\.mp3$/i, ""),
-
-                url:
-                    baseURL
-                    + encodeURIComponent(file.name)
-
-            }));
-
+            });
 
         if (songs.length === 0) {
 
+            title.textContent = "Không tìm thấy bài hát";
+
             status.textContent =
-                "Không tìm thấy file MP3.";
+                "Không có file MP3.";
 
             return;
-
         }
 
-
-        status.textContent =
-            "Đã tải "
-            + songs.length
-            + " bài";
-
+        /*
+            Sắp xếp theo tên file để danh sách
+            hiển thị ổn định.
+        */
+        songs.sort((a, b) =>
+            a.name.localeCompare(b.name)
+        );
 
         createSongList();
 
-
-        /*
-            Chọn bài đầu tiên
-            nhưng chưa tự phát.
-        */
-
         playSong(0, false);
 
+        status.textContent =
+            `Đã tải ${songs.length} bài`;
 
     } catch (error) {
 
         console.error(error);
 
+        title.textContent =
+            "Không tải được danh sách";
+
         status.textContent =
-            "Không thể tải danh sách nhạc.";
+            "Hãy kiểm tra Internet Archive.";
 
     }
-
 }
 
 
-/* =====================================
+/* =========================
    TẠO DANH SÁCH
-===================================== */
+========================= */
 
 function createSongList() {
 
-    songList.innerHTML =
-        '<div class="list-title">'
-        + 'Danh sách bài hát'
-        + '</div>';
-
+    songList.innerHTML = "";
 
     songs.forEach((song, index) => {
 
-        const item =
-            document.createElement("div");
+        const div = document.createElement("div");
 
+        div.className = "song";
 
-        item.className =
-            "song-item";
+        div.innerHTML = `
+            <div class="number">
+                ${index + 1}
+            </div>
 
+            <div class="song-name">
+                ${escapeHTML(
+                    removeExtension(song.name)
+                )}
+            </div>
+        `;
 
-        item.textContent =
-            (index + 1)
-            + ". "
-            + song.name;
+        div.onclick = function() {
+            playSong(index, true);
+        };
 
-
-        item.onclick =
-            function() {
-
-                playSong(index, true);
-
-            };
-
-
-        songList.appendChild(item);
+        songList.appendChild(div);
 
     });
 
+    updateSongList();
 }
 
 
-/* =====================================
+/* =========================
    PHÁT BÀI
-===================================== */
+========================= */
 
-function playSong(
-    index,
-    autoplay = true
-) {
+function playSong(index, autoPlay = true) {
 
-    if (!songs[index]) return;
+    if (!songs.length) return;
 
+    if (index < 0)
+        index = songs.length - 1;
 
-    currentIndex =
-        index;
+    if (index >= songs.length)
+        index = 0;
 
+    currentIndex = index;
 
-    audio.src =
-        songs[index].url;
+    const song = songs[currentIndex];
 
+    audio.src = song.url;
 
     title.textContent =
-        songs[index].name;
-
+        removeExtension(song.name);
 
     updateSongList();
 
-
-    if (autoplay) {
+    if (autoPlay) {
 
         audio.play()
             .then(() => {
 
-                playButton.textContent =
-                    "❚❚";
+                playButton.textContent = "❚❚";
 
             })
-            .catch(() => {});
+            .catch(error => {
+
+                console.error(error);
+
+                playButton.textContent = "▶";
+
+            });
+
+    } else {
+
+        playButton.textContent = "▶";
 
     }
 
 }
 
 
-/* =====================================
+/* =========================
    PLAY / PAUSE
-===================================== */
+========================= */
 
 function togglePlay() {
 
     if (!audio.src) return;
 
-
     if (audio.paused) {
 
         audio.play();
 
-        playButton.textContent =
-            "❚❚";
+        playButton.textContent = "❚❚";
 
     } else {
 
         audio.pause();
 
-        playButton.textContent =
-            "▶";
+        playButton.textContent = "▶";
 
     }
 
 }
 
 
-/* =====================================
-   LÙI 10 GIÂY
-===================================== */
+/* =========================
+   BÀI TIẾP THEO
+========================= */
 
-function skipBackward() {
+function nextSong() {
+
+    if (songs.length === 0) return;
+
+
+    /*
+        NẾU ĐANG BẬT TRỘN
+    */
+
+    if (shuffleEnabled) {
+
+        /*
+            Đánh dấu bài hiện tại đã nghe.
+        */
+        if (!playedSongs.includes(currentIndex)) {
+
+            playedSongs.push(currentIndex);
+
+        }
+
+
+        /*
+            Lấy tất cả bài chưa nghe
+            trong lượt trộn hiện tại.
+        */
+        let availableSongs = songs
+            .map((_, index) => index)
+            .filter(index =>
+                !playedSongs.includes(index)
+            );
+
+
+        /*
+            Nếu đã nghe hết tất cả bài:
+            reset lịch sử và bắt đầu
+            một lượt trộn mới.
+        */
+        if (availableSongs.length === 0) {
+
+            playedSongs = [];
+
+            availableSongs =
+                songs.map((_, index) => index);
+
+        }
+
+
+        /*
+            Chọn một bài NGẪU NHIÊN.
+        */
+        const randomPosition =
+            Math.floor(
+                Math.random() *
+                availableSongs.length
+            );
+
+        const nextIndex =
+            availableSongs[randomPosition];
+
+
+        playSong(nextIndex, true);
+
+        return;
+    }
+
+
+    /*
+        NẾU KHÔNG TRỘN:
+        phát bài kế tiếp bình thường.
+    */
+
+    let nextIndex = currentIndex + 1;
+
+    if (nextIndex >= songs.length) {
+
+        nextIndex = 0;
+
+    }
+
+    playSong(nextIndex, true);
+
+}
+
+
+/* =========================
+   BÀI TRƯỚC
+========================= */
+
+function previousSong() {
+
+    if (!songs.length) return;
+
+    let previousIndex =
+        currentIndex - 1;
+
+    if (previousIndex < 0) {
+
+        previousIndex =
+            songs.length - 1;
+
+    }
+
+    playSong(previousIndex, true);
+
+}
+
+
+/* =========================
+   BẬT / TẮT TRỘN
+========================= */
+
+function toggleShuffle() {
+
+    shuffleEnabled = !shuffleEnabled;
+
+
+    if (shuffleEnabled) {
+
+        /*
+            QUAN TRỌNG:
+
+            Mỗi lần nhấn bật Trộn,
+            lịch sử bài đã nghe sẽ
+            được RESET hoàn toàn.
+        */
+        playedSongs = [];
+
+        shuffleButton.classList.add("active");
+
+        status.textContent =
+            "🔀 Đã bật Trộn - đã reset lịch sử";
+
+    } else {
+
+        shuffleButton.classList.remove("active");
+
+        /*
+            Tắt trộn cũng xóa lịch sử.
+        */
+        playedSongs = [];
+
+        status.textContent =
+            "Đã tắt Trộn";
+
+    }
+
+}
+
+
+/* =========================
+   TUA 10 GIÂY LÙI
+========================= */
+
+function back10() {
 
     audio.currentTime =
         Math.max(
@@ -773,11 +688,11 @@ function skipBackward() {
 }
 
 
-/* =====================================
-   TIẾN 10 GIÂY
-===================================== */
+/* =========================
+   TUA 10 GIÂY TIẾN
+========================= */
 
-function skipForward() {
+function forward10() {
 
     audio.currentTime =
         Math.min(
@@ -788,268 +703,75 @@ function skipForward() {
 }
 
 
-/* =====================================
-   BÀI TRƯỚC
-===================================== */
+/* =========================
+   THANH TIẾN ĐỘ
+========================= */
 
-function previousSong() {
+audio.addEventListener(
+    "timeupdate",
+    function() {
 
-    if (songs.length === 0) return;
+        if (!audio.duration) return;
 
+        const percent =
+            (audio.currentTime /
+             audio.duration) * 100;
 
-    let index =
-        currentIndex - 1;
+        progress.value = percent;
 
+        currentTimeText.textContent =
+            formatTime(audio.currentTime);
 
-    if (index < 0) {
-
-        index =
-            songs.length - 1;
-
-    }
-
-
-    playSong(index, true);
-
-}
-
-
-/* =====================================
-   BÀI TIẾP
-===================================== */
-
-function nextSong() {
-
-    if (songs.length === 0) return;
-
-
-    /* ================================
-       CHẾ ĐỘ TRỘN
-    ================================= */
-
-    if (shuffleEnabled) {
-
-
-        /*
-            Đánh dấu bài hiện tại
-            đã được phát.
-        */
-
-        if (
-            !playedSongs.includes(
-                currentIndex
-            )
-        ) {
-
-            playedSongs.push(
-                currentIndex
-            );
-
-        }
-
-
-        /*
-            Tạo danh sách
-            những bài CHƯA phát.
-        */
-
-        let available = [];
-
-
-        for (
-            let i = 0;
-            i < songs.length;
-            i++
-        ) {
-
-            if (
-                !playedSongs.includes(i)
-            ) {
-
-                available.push(i);
-
-            }
-
-        }
-
-
-        /*
-            Nếu đã nghe hết tất cả
-            thì bắt đầu vòng mới.
-        */
-
-        if (
-            available.length === 0
-        ) {
-
-            /*
-                Giữ bài hiện tại
-                là bài đã phát.
-            */
-
-            playedSongs = [
-                currentIndex
-            ];
-
-
-            /*
-                Các bài còn lại
-                trở thành danh sách mới.
-            */
-
-            for (
-                let i = 0;
-                i < songs.length;
-                i++
-            ) {
-
-                if (
-                    i !== currentIndex
-                ) {
-
-                    available.push(i);
-
-                }
-
-            }
-
-        }
-
-
-        /*
-            Chọn ngẫu nhiên
-            một bài chưa phát.
-        */
-
-        const randomPosition =
-            Math.floor(
-                Math.random()
-                * available.length
-            );
-
-
-        const nextIndex =
-            available[
-                randomPosition
-            ];
-
-
-        playSong(
-            nextIndex,
-            true
-        );
+        durationText.textContent =
+            formatTime(audio.duration);
 
     }
+);
 
 
-    /* ================================
-       TRỘN TẮT
-    ================================= */
+progress.addEventListener(
+    "input",
+    function() {
 
-    else {
+        if (!audio.duration) return;
 
-        let index =
-            currentIndex + 1;
-
-
-        if (
-            index >= songs.length
-        ) {
-
-            index = 0;
-
-        }
-
-
-        playSong(
-            index,
-            true
-        );
+        audio.currentTime =
+            (progress.value / 100) *
+            audio.duration;
 
     }
-
-}
-
-
-/* =====================================
-   BẬT / TẮT TRỘN
-===================================== */
-
-function toggleShuffle() {
-
-    shuffleEnabled =
-        !shuffleEnabled;
+);
 
 
-    if (shuffleEnabled) {
-
-
-        /*
-            Nút 🔀 sáng lên.
-        */
-
-        shuffleButton
-            .classList
-            .add("active");
-
-
-        /*
-            Bài hiện tại được tính
-            là bài đã phát.
-        */
-
-        playedSongs = [
-            currentIndex
-        ];
-
-
-        status.textContent =
-            "🔀 Đã bật trộn";
-
-
-    } else {
-
-
-        shuffleButton
-            .classList
-            .remove("active");
-
-
-        status.textContent =
-            "Đã tắt trộn";
-
-    }
-
-
-    updateSongList();
-
-}
-
-
-/* =====================================
-   TỰ ĐỘNG SANG BÀI
-===================================== */
+/* =========================
+   KHI BÀI HẾT
+========================= */
 
 audio.addEventListener(
     "ended",
     function() {
 
+        /*
+            Nếu Trộn:
+            nextSong() sẽ tự đánh dấu
+            bài hiện tại và chọn bài
+            ngẫu nhiên chưa nghe.
+        */
         nextSong();
 
     }
 );
 
 
-/* =====================================
-   PLAY / PAUSE EVENT
-===================================== */
+/* =========================
+   AUDIO ĐANG CHẠY
+========================= */
 
 audio.addEventListener(
     "play",
     function() {
 
-        playButton.textContent =
-            "❚❚";
+        playButton.textContent = "❚❚";
 
     }
 );
@@ -1059,119 +781,106 @@ audio.addEventListener(
     "pause",
     function() {
 
-        playButton.textContent =
-            "▶";
+        playButton.textContent = "▶";
 
     }
 );
 
 
-/* =====================================
-   THANH TIẾN TRÌNH
-===================================== */
+/* =========================
+   CẬP NHẬT DANH SÁCH
+========================= */
 
-audio.addEventListener(
-    "timeupdate",
-    function() {
+function updateSongList() {
 
-        if (!audio.duration) return;
+    const items =
+        document.querySelectorAll(".song");
 
+    items.forEach((item, index) => {
 
-        progress.value =
-            (
-                audio.currentTime
-                /
-                audio.duration
-            ) * 100;
+        item.classList.toggle(
+            "active",
+            index === currentIndex
+        );
 
+    });
 
-        currentTimeText.textContent =
-            formatTime(
-                audio.currentTime
-            );
+}
 
 
-        durationText.textContent =
-            formatTime(
-                audio.duration
-            );
+/* =========================
+   FORMAT THỜI GIAN
+========================= */
 
-    }
-);
+function formatTime(seconds) {
 
+    if (!isFinite(seconds))
+        return "0:00";
 
-/* =====================================
-   KÉO THANH TIẾN TRÌNH
-===================================== */
+    const minutes =
+        Math.floor(seconds / 60);
 
-progress.addEventListener(
-    "input",
-    function() {
+    const secs =
+        Math.floor(seconds % 60);
 
-        if (!audio.duration) return;
+    return minutes + ":" +
+        String(secs).padStart(2, "0");
 
-
-        audio.currentTime =
-            (
-                progress.value / 100
-            )
-            * audio.duration;
-
-    }
-);
+}
 
 
-/* =====================================
-   PHÍM PC
-===================================== */
+/* =========================
+   XÓA ĐUÔI .MP3
+========================= */
+
+function removeExtension(filename) {
+
+    return filename
+        .replace(/\.mp3$/i, "");
+
+}
+
+
+/* =========================
+   CHỐNG HTML TRONG TÊN FILE
+========================= */
+
+function escapeHTML(text) {
+
+    return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================
+   PHÍM TẮT TRÊN PC
+========================= */
 
 document.addEventListener(
     "keydown",
     function(event) {
 
-
         /*
-            ← = lùi 10 giây
+            Không xử lý phím nếu người dùng
+            đang nhập vào ô input.
         */
-
         if (
-            event.key === "ArrowLeft"
+            event.target.tagName === "INPUT" ||
+            event.target.tagName === "TEXTAREA"
         ) {
-
-            event.preventDefault();
-
-            skipBackward();
-
+            return;
         }
 
 
         /*
-            → = tiến 10 giây
+            Space = Play / Pause
         */
-
-        if (
-            event.key === "ArrowRight"
-        ) {
-
-            event.preventDefault();
-
-            skipForward();
-
-        }
-
-
-        /*
-            SPACE = Play / Pause
-        */
-
-        if (
-            event.code === "Space"
-        ) {
-
-            /*
-                Không làm trang
-                cuộn lên/xuống.
-            */
+        if (event.code === "Space") {
 
             event.preventDefault();
 
@@ -1179,125 +888,37 @@ document.addEventListener(
 
         }
 
-    }
-);
 
+        /*
+            ← = lùi 10 giây
+        */
+        if (event.key === "ArrowLeft") {
 
-/* =====================================
-   FORMAT THỜI GIAN
-===================================== */
-
-function formatTime(seconds) {
-
-    if (
-        isNaN(seconds)
-    ) {
-
-        return "00:00";
-
-    }
-
-
-    const minutes =
-        Math.floor(
-            seconds / 60
-        );
-
-
-    const secs =
-        Math.floor(
-            seconds % 60
-        );
-
-
-    return (
-        String(minutes)
-            .padStart(2, "0")
-        + ":"
-        +
-        String(secs)
-            .padStart(2, "0")
-    );
-
-}
-
-
-/* =====================================
-   CẬP NHẬT DANH SÁCH
-===================================== */
-
-function updateSongList() {
-
-    const items =
-        document.querySelectorAll(
-            ".song-item"
-        );
-
-
-    items.forEach(
-        (item, index) => {
-
-
-            /*
-                Bài đang phát
-            */
-
-            item.classList.toggle(
-                "active",
-                index === currentIndex
-            );
-
-
-            /*
-                Bài đã phát
-                trong chế độ trộn
-            */
-
-            item.classList.toggle(
-                "played",
-                shuffleEnabled
-                &&
-                playedSongs.includes(index)
-                &&
-                index !== currentIndex
-            );
+            back10();
 
         }
-    );
-
-}
 
 
-/* =====================================
-   CUỘN TỚI DANH SÁCH
-===================================== */
+        /*
+            → = tiến 10 giây
+        */
+        if (event.key === "ArrowRight") {
 
-function showList() {
+            forward10();
 
-    songList.scrollIntoView({
-        behavior: "smooth"
-    });
+        }
 
-}
-
-
-/* =====================================
-   CẬP NHẬT ĐỊNH KỲ
-===================================== */
-
-setInterval(
-    updateSongList,
-    500
+    }
 );
 
 
-/* =====================================
+/* =========================
    BẮT ĐẦU
-===================================== */
+========================= */
 
 loadSongs();
 
 </script>
 
 </body>
-    </html>
+</html>

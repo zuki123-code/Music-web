@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Music</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#101018;color:white;font-family:Arial,sans-serif}
+.container{max-width:600px;margin:auto;padding:25px 18px}
+h1{font-size:32px;margin-bottom:5px}
+.subtitle{color:#aaa;margin-bottom:25px}
+.card{background:#1b1b28;border:1px solid #333;border-radius:20px;padding:20px;margin-bottom:20px}
+.cover{width:100%;height:180px;border-radius:15px;background:linear-gradient(135deg,#6c5ce7,#00cec9);display:flex;align-items:center;justify-content:center;font-size:70px}
+#now{font-size:20px;font-weight:bold;margin-top:18px}
+#artist{color:#aaa;margin-top:5px}
+input[type=range]{width:100%;accent-color:#a78bfa}
+.time{display:flex;justify-content:space-between;color:#aaa;font-size:12px}
+button{border:0;border-radius:50%;background:#a78bfa;color:white;width:58px;height:58px;font-size:25px;cursor:pointer}
+.controls{text-align:center;margin-top:15px}
+.song{display:flex;align-items:center;gap:15px;padding:15px;background:#1b1b28;border-radius:15px;margin:10px 0;cursor:pointer}
+.song:hover{background:#29293b}
+.song-icon{font-size:25px}
+.song-info{flex:1}
+.song-name{font-weight:bold}
+.song-artist{color:#999;font-size:13px;margin-top:5px}
+.play-small{background:#29293b;width:40px;height:40px;font-size:18px}
+</style>
+</head>
+<body>
+
+<div class="container">
+<h1>🎵 My Music</h1>
+<div class="subtitle">Kho nhạc của mình</div>
+
+<div class="card">
+  <div class="cover">🎧</div>
+  <div id="now">Chưa chọn bài hát</div>
+  <div id="artist">My Music</div>
+  <br>
+  <input type="range" id="progress" value="0">
+  <div class="time"><span id="current">0:00</span><span id="duration">0:00</span></div>
+  <div class="controls">
+    <button id="play">▶</button>
+  </div>
+</div>
+
+<div id="list"></div>
+</div>
+
+<audio id="audio"></audio>
+
+<script>
+const songs = [
+  {name:"Bài hát 1", artist:"Nghệ sĩ", file:"nhac1.mp3"},
+  {name:"Bài hát 2", artist:"Nghệ sĩ", file:"nhac2.mp3"},
+  {name:"Bài hát 3", artist:"Nghệ sĩ", file:"nhac3.mp3"}
+];
+
+const audio=document.getElementById("audio");
+const play=document.getElementById("play");
+const progress=document.getElementById("progress");
+const now=document.getElementById("now");
+const artist=document.getElementById("artist");
+let current=-1;
+
+songs.forEach((s,i)=>{
+  const div=document.createElement("div");
+  div.className="song";
+  div.innerHTML=`<div class="song-icon">🎵</div>
+  <div class="song-info"><div class="song-name">${s.name}</div>
+  <div class="song-artist">${s.artist}</div></div>
+  <button class="play-small">▶</button>`;
+  div.onclick=()=>loadSong(i);
+  document.getElementById("list").appendChild(div);
+});
+
+function loadSong(i){
+  current=i;
+  audio.src=songs[i].file;
+  now.textContent=songs[i].name;
+  artist.textContent=songs[i].artist;
+  audio.play();
+  play.textContent="⏸";
+}
+
+play.onclick=()=>{
+  if(current===-1) return;
+  if(audio.paused){audio.play();play.textContent="⏸";}
+  else{audio.pause();play.textContent="▶";}
+};
+
+audio.ontimeupdate=()=>{
+  progress.value=audio.duration?(audio.currentTime/audio.duration)*100:0;
+  document.getElementById("current").textContent=format(audio.currentTime);
+  document.getElementById("duration").textContent=format(audio.duration);
+};
+
+progress.oninput=()=>{
+  audio.currentTime=(progress.value/100)*audio.duration;
+};
+
+function format(t){
+  if(!isFinite(t)) return "0:00";
+  return Math.floor(t/60)+":"+String(Math.floor(t%60)).padStart(2,"0");
+}
+</script>
+</body>
+  </html>
